@@ -17,24 +17,30 @@ const fruits = [
   { name: "Strawberries", source: Strawberries },
 ];
 function DisplayContainer() {
-  const [cardOpen, setCardOpen] = useState(false);
-  const handleClick = (event) => {
-    setCardOpen(!cardOpen);
+  const initialState = fruits
+    .concat(fruits)
+    .sort(() => Math.random() - 0.5)
+    .map((fruit) => ({ open: false, card: fruit }));
+  const [gameField, setGameField] = useState(initialState);
+  console.log(gameField);
+
+  const handleClick = (index) => {
+    const newGameField = [...gameField];
+    newGameField[index].open = !newGameField[index].open;
+    setGameField(newGameField);
   };
   return (
     <div className="container">
-      {fruits
-        .concat(fruits)
-        .sort(() => Math.random() - 0.3)
-        .map((fruit, index) => (
-          <Card
-            key={index}
-            name={fruit.name.toLowerCase()}
-            src={fruit.source}
-            onClick={handleClick}
-            cardOpen={cardOpen}
-          />
-        ))}
+      {gameField.map((cell, index) => (
+        <Card
+          className="fruit-card"
+          key={index}
+          name={cell.card.name.toLowerCase()}
+          src={cell.card.source}
+          handleClick={() => handleClick(index)}
+          cardOpen={cell.open}
+        />
+      ))}
     </div>
   );
 }
