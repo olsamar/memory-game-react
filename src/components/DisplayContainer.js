@@ -39,6 +39,7 @@ function DisplayContainer() {
     ) {
       cardClicked.open = true;
     } else if (
+      cardClicked.open !== true &&
       !cardClicked.matched &&
       newGameField.reduce((amountFlipped, cell) => {
         return cell.open === true ? amountFlipped + 1 : amountFlipped;
@@ -47,14 +48,13 @@ function DisplayContainer() {
       const firstCardFlipped = newGameField.find((card) => card.open === true);
       cardClicked.open = true;
       matchThePair(cardClicked, firstCardFlipped);
-      // console.log(firstCardFlipped);
     } else {
       return;
     }
   };
 
   const matchThePair = (cardClicked, firstCardFlipped) => {
-    if ((cardClicked.card.name = firstCardFlipped.card.name)) {
+    if (cardClicked.card.name === firstCardFlipped.card.name) {
       cardClicked.matched = true;
       firstCardFlipped.matched = true;
     }
