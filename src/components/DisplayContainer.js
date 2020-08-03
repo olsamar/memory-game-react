@@ -87,7 +87,6 @@ function DisplayContainer() {
     <div className="container">
       {gameField.map((cell, index) => (
         <Card
-          className="fruit-card"
           key={index}
           name={cell.card.name.toLowerCase()}
           src={cell.card.source}
