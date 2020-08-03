@@ -17,11 +17,17 @@ const fruits = [
   { name: "Strawberries", source: Strawberries },
 ];
 
+export const CardState = {
+  FACE_DOWN: 0,
+  FACE_UP: 1,
+  MATCHED: 2,
+};
+
 function DisplayContainer() {
   const gameFieldInitialState = fruits
     .concat(fruits)
     .sort(() => Math.random() - 0.5)
-    .map((fruit) => ({ cardState: "faceDown", card: fruit }));
+    .map((fruit) => ({ cardState: CardState.FACE_DOWN, card: fruit }));
   const [gameField, setGameField] = useState(gameFieldInitialState);
 
   const handleClick = (index) => {
@@ -35,41 +41,45 @@ function DisplayContainer() {
     const cardClicked = newGameField[index];
     if (
       newGameField.reduce((amountFlipped, cell) => {
-        return cell.cardState === "faceUp" ? amountFlipped + 1 : amountFlipped;
+        return cell.cardState === CardState.FACE_UP
+          ? amountFlipped + 1
+          : amountFlipped;
       }, 0) === 0
     ) {
-      cardClicked.cardState = "faceUp";
+      cardClicked.cardState = CardState.FACE_UP;
     } else if (
-      cardClicked.cardState !== "faceUp" &&
+      cardClicked.cardState !== CardState.FACE_UP &&
       newGameField.reduce((amountFlipped, cell) => {
-        return cell.cardState === "faceUp" ? amountFlipped + 1 : amountFlipped;
+        return cell.cardState === CardState.FACE_UP
+          ? amountFlipped + 1
+          : amountFlipped;
       }, 0) === 1
     ) {
       const firstCardFlipped = newGameField.find(
-        (card) => card.cardState === "faceUp"
+        (card) => card.cardState === CardState.FACE_UP
       );
-      cardClicked.cardState = "faceUp";
+      cardClicked.cardState = CardState.FACE_UP;
       matchThePair(cardClicked, firstCardFlipped, index);
     } else {
       return;
     }
   };
 
-  const matchThePair = (cardClicked, firstCardFlipped, index) => {
+  const matchThePair = (cardClicked, firstCardFlipped) => {
     if (cardClicked.card.name === firstCardFlipped.card.name) {
-      cardClicked.cardState = "matched";
-      firstCardFlipped.cardState = "matched";
+      cardClicked.cardState = CardState.MATCHED;
+      firstCardFlipped.cardState = CardState.MATCHED;
     } else {
       setTimeout(() => {
         setGameField((prevState) => {
-          prevState.forEach((card) => {
-            if (card.cardState === "faceUp") {
-              card.cardState = "faceDown";
+          prevState.forEach((cell) => {
+            if (cell.cardState === CardState.FACE_UP) {
+              cell.cardState = CardState.FACE_DOWN;
             }
           });
           return [...prevState];
         });
-      }, 2000);
+      }, 1500);
     }
   };
 
