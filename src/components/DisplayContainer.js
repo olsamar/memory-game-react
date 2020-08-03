@@ -16,49 +16,61 @@ const fruits = [
   { name: "Pear", source: Pear },
   { name: "Strawberries", source: Strawberries },
 ];
+
 function DisplayContainer() {
   const gameFieldInitialState = fruits
     .concat(fruits)
     .sort(() => Math.random() - 0.5)
-    .map((fruit) => ({ open: false, card: fruit, matched: false }));
+    .map((fruit) => ({ cardState: "faceDown", card: fruit }));
   const [gameField, setGameField] = useState(gameFieldInitialState);
 
   const handleClick = (index) => {
+    // creating a new game deck so that React checks my array with cards
     const newGameField = [...gameField];
-    setGameField(newGameField);
     flipTheCard(index, newGameField);
+    setGameField(newGameField);
   };
 
   const flipTheCard = (index, newGameField) => {
     const cardClicked = newGameField[index];
     if (
-      !cardClicked.matched &&
       newGameField.reduce((amountFlipped, cell) => {
-        return cell.open === true ? amountFlipped + 1 : amountFlipped;
+        return cell.cardState === "faceUp" ? amountFlipped + 1 : amountFlipped;
       }, 0) === 0
     ) {
-      cardClicked.open = true;
+      cardClicked.cardState = "faceUp";
     } else if (
-      cardClicked.open !== true &&
-      !cardClicked.matched &&
+      cardClicked.cardState !== "faceUp" &&
       newGameField.reduce((amountFlipped, cell) => {
-        return cell.open === true ? amountFlipped + 1 : amountFlipped;
+        return cell.cardState === "faceUp" ? amountFlipped + 1 : amountFlipped;
       }, 0) === 1
     ) {
-      const firstCardFlipped = newGameField.find((card) => card.open === true);
-      cardClicked.open = true;
-      matchThePair(cardClicked, firstCardFlipped);
+      const firstCardFlipped = newGameField.find(
+        (card) => card.cardState === "faceUp"
+      );
+      cardClicked.cardState = "faceUp";
+      matchThePair(cardClicked, firstCardFlipped, index);
     } else {
       return;
     }
   };
 
-  const matchThePair = (cardClicked, firstCardFlipped) => {
+  const matchThePair = (cardClicked, firstCardFlipped, index) => {
     if (cardClicked.card.name === firstCardFlipped.card.name) {
-      cardClicked.matched = true;
-      firstCardFlipped.matched = true;
+      cardClicked.cardState = "matched";
+      firstCardFlipped.cardState = "matched";
+    } else {
+      setTimeout(() => {
+        setGameField((prevState) => {
+          prevState.forEach((card) => {
+            if (card.cardState === "faceUp") {
+              card.cardState = "faceDown";
+            }
+          });
+          return [...prevState];
+        });
+      }, 2000);
     }
-    console.log(cardClicked, firstCardFlipped);
   };
 
   return (
@@ -70,7 +82,7 @@ function DisplayContainer() {
           name={cell.card.name.toLowerCase()}
           src={cell.card.source}
           handleClick={() => handleClick(index)}
-          cardOpen={cell.open}
+          cardOpen={cell.cardState}
         />
       ))}
     </div>
