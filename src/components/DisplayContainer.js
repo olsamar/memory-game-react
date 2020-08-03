@@ -40,6 +40,7 @@ function DisplayContainer() {
   const flipTheCard = (index, newGameField) => {
     const cardClicked = newGameField[index];
     if (
+      cardClicked.cardState === CardState.FACE_DOWN &&
       newGameField.reduce((amountFlipped, cell) => {
         return cell.cardState === CardState.FACE_UP
           ? amountFlipped + 1
@@ -48,7 +49,7 @@ function DisplayContainer() {
     ) {
       cardClicked.cardState = CardState.FACE_UP;
     } else if (
-      cardClicked.cardState !== CardState.FACE_UP &&
+      cardClicked.cardState === CardState.FACE_DOWN &&
       newGameField.reduce((amountFlipped, cell) => {
         return cell.cardState === CardState.FACE_UP
           ? amountFlipped + 1
@@ -79,7 +80,7 @@ function DisplayContainer() {
           });
           return [...prevState];
         });
-      }, 1500);
+      }, 1000);
     }
   };
 
