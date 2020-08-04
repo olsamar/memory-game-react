@@ -80,7 +80,7 @@ function DisplayContainer() {
           });
           return [...prevState];
         });
-      }, 1000);
+      }, 1500);
     }
   };
 

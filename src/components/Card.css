@@ -1,0 +1,36 @@
+.fruit-card {
+  border: 1px solid red;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 1.1s ease;
+  background: khaki;
+}
+
+.fruit-card.flip {
+  transform: rotateY(180deg);
+}
+/* @keyframes matchingCardsScaled {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1);
+  }
+} */
+
+.card-face-up {
+  position: absolute;
+  top: 17%;
+  width: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.card-face-down {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: greenyellow;
+  backface-visibility: hidden;
+  transform: none;
+}
