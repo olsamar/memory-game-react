@@ -72,7 +72,9 @@ function GameContainer() {
     if (cardClicked.card.name === firstCardFlipped.card.name) {
       cardClicked.cardState = CardState.MATCHED;
       firstCardFlipped.cardState = CardState.MATCHED;
-      setGameScore((prevState) => prevState + 1);
+      setTimeout(() => {
+        setGameScore((prevState) => prevState + 1);
+      }, 1500);
     } else {
       setTimeout(() => {
         setGameField((prevState) => {
@@ -89,11 +91,14 @@ function GameContainer() {
 
   const resetGame = () => {
     setGameField(gameFieldInitialState);
-    setGameScore(gameScore === 0);
+    setGameScore(0);
   };
   return (
     <React.Fragment>
-      <div className="container">
+      <section className="game-score">
+        <h3>SCORE: {gameScore}</h3>
+      </section>
+      <section className="game-field-container">
         {gameField.map((cell, index) => (
           <Card
             key={index}
@@ -103,7 +108,7 @@ function GameContainer() {
             cardOpen={cell.cardState}
           />
         ))}
-      </div>
+      </section>
       <EndOfTheGame gameScore={gameScore} resetGame={resetGame} />
     </React.Fragment>
   );

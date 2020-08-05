@@ -1,6 +1,6 @@
-.container {
+.game-field-container {
   width: 80vw;
-  height: 70vh;
+  height: 65vh;
   display: grid;
   grid-template-columns: repeat(4, auto);
   gap: 0.6rem;
@@ -10,10 +10,20 @@
   perspective: 1000px;
 }
 
+.game-score {
+  width: 80vw;
+  height: 3rem;
+  background: saddlebrown;
+  position: relative;
+  margin: 2rem 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .end-of-game {
   width: 80vw;
-  height: 80vh;
-
+  height: 100%;
   z-index: 2;
   margin: auto;
   display: flex;
@@ -26,6 +36,5 @@
 .play-again-btn {
   width: 10rem;
   height: 3rem;
-
   background: rebeccapurple;
 }
