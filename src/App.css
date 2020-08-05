@@ -2,7 +2,10 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  --bg-color: #ece3f0;
+  --bg-color-lighter: #865204;
+  --bg-color-darker: #3ab32a;
+  --card-face-down-color-lighter: #d8d402;
+  --card-face-down-color-darker: #660220;
 }
 html {
   height: 100%;
@@ -11,9 +14,14 @@ html {
 body {
   height: 100%;
   width: 100%;
-  background-color: var(--bg-color);
+  background: linear-gradient(
+    0.6turn,
+    var(--bg-color-darker),
+    var(--bg-color-lighter)
+  );
   margin: 1rem auto;
   display: flex;
+  overflow: hidden;
 }
 
 .App {
@@ -22,4 +30,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+header {
+  color: var(--card-face-down-color-darker);
 }

@@ -2,9 +2,9 @@
   width: 80vw;
   height: 65vh;
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(3, auto);
   gap: 0.6rem;
-  border: 1px solid black;
+
   margin: auto;
   position: relative;
   perspective: 1000px;
@@ -13,13 +13,14 @@
 .game-score {
   width: 80vw;
   height: 3rem;
-  background: saddlebrown;
+  background: rgb(243, 228, 18);
   position: relative;
   margin: 2rem 0;
-  color: white;
+  color: var(--card-face-down-color-darker);
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 6px;
 }
 .end-of-game {
   width: 80vw;
@@ -37,4 +38,10 @@
   width: 10rem;
   height: 3rem;
   background: rebeccapurple;
+}
+
+@media only screen and (min-width: 600px) {
+  .game-field-container {
+    grid-template-columns: repeat(4, auto);
+  }
 }
