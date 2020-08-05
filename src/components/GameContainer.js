@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Apple from "./../assets/images/Apple.png";
 import Banana from "./../assets/images/Banana.png";
@@ -31,6 +31,7 @@ function GameContainer() {
     .map((fruit) => ({ cardState: CardState.FACE_DOWN, card: fruit }));
   const [gameField, setGameField] = useState(gameFieldInitialState);
   const [gameScore, setGameScore] = useState(0);
+  const [gameEnd, setGameEnd] = useState(false);
 
   const handleClick = (index) => {
     // creating a new game deck so that React checks my array with cards
@@ -74,7 +75,7 @@ function GameContainer() {
       firstCardFlipped.cardState = CardState.MATCHED;
       setTimeout(() => {
         setGameScore((prevState) => prevState + 1);
-      }, 1500);
+      }, 1000);
     } else {
       setTimeout(() => {
         setGameField((prevState) => {
@@ -90,9 +91,30 @@ function GameContainer() {
   };
 
   const resetGame = () => {
-    setGameField(gameFieldInitialState);
+    setGameField((prevState) => {
+      prevState.forEach((cell) => (cell.cardState = CardState.FACE_DOWN));
+      return [...prevState];
+    });
     setGameScore(0);
+    setGameEnd(false);
+    setTimeout(() => {
+      setGameField(gameFieldInitialState);
+    }, 1000);
   };
+
+  useEffect(() => {
+    let timeout;
+    if (gameScore === 6) {
+      timeout = setTimeout(() => {
+        setGameEnd(true);
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [gameEnd, gameScore]);
+
   return (
     <React.Fragment>
       <section className="game-score">
@@ -109,7 +131,7 @@ function GameContainer() {
           />
         ))}
       </section>
-      <EndOfTheGame gameScore={gameScore} resetGame={resetGame} />
+      <EndOfTheGame gameEnd={gameEnd} resetGame={resetGame} />
     </React.Fragment>
   );
 }
