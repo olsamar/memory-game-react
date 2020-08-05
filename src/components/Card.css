@@ -46,3 +46,9 @@
     max-width: 90%;
   }
 }
+
+@media only screen and (min-width: 900px) {
+  .card-face-up {
+    max-width: 70%;
+  }
+}

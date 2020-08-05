@@ -1,0 +1,22 @@
+.end-of-game {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(220, 250, 219, 0.8);
+  position: absolute;
+  color: var(--card-face-down-color-darker);
+}
+
+.play-again-btn {
+  width: 11rem;
+  height: 4rem;
+  background: var(--card-face-down-color-lighter);
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  border-radius: 5px;
+}
