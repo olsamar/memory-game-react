@@ -6,7 +6,8 @@ import Blueberries from "./../assets/images/Blueberries.png";
 import Grapes from "./../assets/images/Grape.png";
 import Pear from "./../assets/images/Pear.png";
 import Strawberries from "./../assets/images/Strawberrie.png";
-import "./DisplayContainer.css";
+import EndOfTheGame from "./EndOfTheGame";
+import "./GameContainer.css";
 
 const fruits = [
   { name: "Apple", source: Apple },
@@ -23,12 +24,13 @@ export const CardState = {
   MATCHED: 2,
 };
 
-function DisplayContainer() {
+function GameContainer() {
   const gameFieldInitialState = fruits
     .concat(fruits)
     .sort(() => Math.random() - 0.5)
     .map((fruit) => ({ cardState: CardState.FACE_DOWN, card: fruit }));
   const [gameField, setGameField] = useState(gameFieldInitialState);
+  const [gameScore, setGameScore] = useState(0);
 
   const handleClick = (index) => {
     // creating a new game deck so that React checks my array with cards
@@ -70,6 +72,7 @@ function DisplayContainer() {
     if (cardClicked.card.name === firstCardFlipped.card.name) {
       cardClicked.cardState = CardState.MATCHED;
       firstCardFlipped.cardState = CardState.MATCHED;
+      setGameScore((prevState) => prevState + 1);
     } else {
       setTimeout(() => {
         setGameField((prevState) => {
@@ -84,19 +87,26 @@ function DisplayContainer() {
     }
   };
 
+  const resetGame = () => {
+    setGameField(gameFieldInitialState);
+    setGameScore(gameScore === 0);
+  };
   return (
-    <div className="container">
-      {gameField.map((cell, index) => (
-        <Card
-          key={index}
-          name={cell.card.name.toLowerCase()}
-          src={cell.card.source}
-          handleClick={() => handleClick(index)}
-          cardOpen={cell.cardState}
-        />
-      ))}
-    </div>
+    <React.Fragment>
+      <div className="container">
+        {gameField.map((cell, index) => (
+          <Card
+            key={index}
+            name={cell.card.name.toLowerCase()}
+            src={cell.card.source}
+            handleClick={() => handleClick(index)}
+            cardOpen={cell.cardState}
+          />
+        ))}
+      </div>
+      <EndOfTheGame gameScore={gameScore} resetGame={resetGame} />
+    </React.Fragment>
   );
 }
 
-export default DisplayContainer;
+export default GameContainer;

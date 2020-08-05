@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "./components/Header";
-import DisplayContainer from "./components/DisplayContainer";
+import GameContainer from "./components/GameContainer";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <DisplayContainer />
+      <GameContainer />
     </div>
   );
 }
