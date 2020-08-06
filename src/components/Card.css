@@ -1,9 +1,10 @@
 .fruit-card {
-  border-radius: 8px;
   position: relative;
   transform-style: preserve-3d;
   transition: all 1.1s ease;
-  background: khaki;
+  background: var(--card-face-up-bg);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
 }
 
 .fruit-card.flip {
@@ -31,11 +32,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    0.6turn,
-    var(--card-face-down-color-darker),
-    var(--card-face-down-color-lighter)
-  );
+  background: url(./../assets/images/PurpleDottedBg.png);
   backface-visibility: hidden;
   transform: none;
   border-radius: 6px;

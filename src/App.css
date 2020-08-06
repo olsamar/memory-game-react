@@ -2,10 +2,12 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  --bg-color-lighter: #865204;
-  --bg-color-darker: #3ab32a;
-  --card-face-down-color-lighter: #d8d402;
-  --card-face-down-color-darker: #660220;
+  --bg-color-lighter: #f5b673;
+  --bg-color-darker: #44703e;
+  --game-score-bg: #ffef62;
+  --font-color: #33091d;
+  --card-face-up-bg: rgb(253, 245, 218);
+  --progress-bar-filler-color: #94a3ff;
 }
 html {
   height: 100%;
@@ -14,11 +16,6 @@ html {
 body {
   height: 100%;
   width: 100%;
-  background: linear-gradient(
-    0.6turn,
-    var(--bg-color-darker),
-    var(--bg-color-lighter)
-  );
   margin: auto;
   display: flex;
   overflow: hidden;
@@ -26,7 +23,7 @@ body {
 
 .App {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,5 +31,5 @@ body {
 }
 
 header {
-  color: var(--card-face-down-color-darker);
+  color: var(--font-color);
 }
