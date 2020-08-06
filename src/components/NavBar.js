@@ -7,7 +7,13 @@ export default function NavBar(props) {
       <div className="progress-bar">
         <h5>TIME LEFT:</h5>
         <div className="progress-bar-container">
-          <div className="progress-bar-filler"></div>
+          <div
+            className="progress-bar-filler"
+            style={
+              props.gameStart
+                ? { animation: "progressBarAnimation 15s ease-in-out" }
+                : {}
+            }></div>
         </div>
       </div>
       <span className="game-score"></span>

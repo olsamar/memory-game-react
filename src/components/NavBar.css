@@ -21,6 +21,7 @@
   width: 80%;
   height: 1.8rem;
   border-radius: 8px;
+  background: var(--card-face-up-bg);
 }
 
 .progress-bar-filler {
@@ -29,6 +30,14 @@
   border-radius: 8px;
 }
 
+@keyframes progressBarAnimation {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
 @media only screen and (min-width: 600px) {
   .navigation-bar h5 {
     font-weight: bolder;
