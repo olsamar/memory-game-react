@@ -7,6 +7,7 @@ import Grapes from "./../assets/images/Grape.png";
 import Pear from "./../assets/images/Pear.png";
 import Strawberries from "./../assets/images/Strawberrie.png";
 import EndOfTheGame from "./EndOfTheGame";
+import NavBar from "./NavBar";
 import "./GameContainer.css";
 
 const fruits = [
@@ -117,9 +118,7 @@ function GameContainer() {
 
   return (
     <React.Fragment>
-      <section className="game-score">
-        <h3>SCORE: {gameScore}</h3>
-      </section>
+      <NavBar gameScore={gameScore} />
       <section className="game-field-container">
         {gameField.map((cell, index) => (
           <Card

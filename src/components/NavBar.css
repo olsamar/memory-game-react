@@ -1,0 +1,41 @@
+.navigation-bar {
+  width: 80vw;
+  height: 3rem;
+  background: var(--game-score-bg);
+  position: relative;
+  color: var(--font-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 60%;
+}
+
+.progress-bar-container {
+  width: 80%;
+  height: 1.8rem;
+  border-radius: 8px;
+}
+
+.progress-bar-filler {
+  height: 100%;
+  background: var(--progress-bar-filler-color);
+  border-radius: 8px;
+}
+
+@media only screen and (min-width: 600px) {
+  .navigation-bar h5 {
+    font-weight: bolder;
+  }
+}
+@media only screen and (min-width: 800px) {
+  .progress-bar-filler {
+    margin-left: 0.8rem;
+  }
+}
