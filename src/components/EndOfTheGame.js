@@ -21,11 +21,11 @@ export default function EndOfTheGame(props) {
       return [...prevState];
     });
     props.setGameScore(0);
-    props.setProgressBarSeconds(props.defaultProgressBarSeconds);
+    props.setSecondsLeft(props.initialGameSeconds);
     props.setGameStatus(GameStatus.NEW_GAME);
     setTimeout(() => {
       props.setGameField(props.gameFieldInitialState);
-    }, 1000);
+    }, 600);
   };
 
   return (

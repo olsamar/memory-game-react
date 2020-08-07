@@ -8,16 +8,15 @@ import { CardState } from "./../modules/CardStateModule";
 import "./GameContainer.css";
 
 function GameContainer() {
-  const defaultProgressBarSeconds = 15;
+  const initialGameSeconds = 15;
+  const initialProgressBarWidth = 100;
   const gameFieldInitialState = fruits
     .concat(fruits)
     .sort(() => Math.random() - 0.5)
     .map((fruit) => ({ cardState: CardState.FACE_DOWN, card: fruit }));
   const [gameField, setGameField] = useState(gameFieldInitialState);
   const [gameScore, setGameScore] = useState(0);
-  const [progressBarSeconds, setProgressBarSeconds] = useState(
-    defaultProgressBarSeconds
-  );
+  const [secondsLeft, setSecondsLeft] = useState(initialGameSeconds);
   const [gameStatus, setGameStatus] = useState(GameStatus.NEW_GAME);
 
   const handleClick = (index) => {
@@ -62,11 +61,11 @@ function GameContainer() {
       cardClicked.cardState = CardState.MATCHED;
       firstCardFlipped.cardState = CardState.MATCHED;
       // setProgressBarSeconds((prevSeconds) => prevSeconds + 2);
-      console.log(progressBarSeconds);
+      console.log(secondsLeft);
 
       setTimeout(() => {
         setGameScore((prevState) => prevState + 1);
-      }, 1000);
+      }, 500);
     } else {
       setTimeout(() => {
         setGameField((prevState) => {
@@ -86,7 +85,7 @@ function GameContainer() {
     if (gameScore === 6) {
       timeout = setTimeout(() => {
         setGameStatus(GameStatus.GAME_WON);
-      }, 1000);
+      }, 700);
     }
 
     return () => {
@@ -98,10 +97,12 @@ function GameContainer() {
     <React.Fragment>
       <NavBar
         gameScore={gameScore}
-        progressBarSeconds={progressBarSeconds}
         gameStatus={gameStatus}
         setGameStatus={setGameStatus}
-        setProgressBarSeconds={setProgressBarSeconds}
+        initialGameSeconds={initialGameSeconds}
+        secondsLeft={secondsLeft}
+        setSecondsLeft={setSecondsLeft}
+        initialProgressBarWidth={initialProgressBarWidth}
       />
       <section className="game-field-container">
         {gameField.map((cell, index) => (
@@ -118,9 +119,10 @@ function GameContainer() {
         gameStatus={gameStatus}
         setGameField={setGameField}
         setGameStatus={setGameStatus}
-        setProgressBarSeconds={setProgressBarSeconds}
         setGameScore={setGameScore}
-        defaultProgressBarSeconds={defaultProgressBarSeconds}
+        initialGameSeconds={initialGameSeconds}
+        setSecondsLeft={setSecondsLeft}
+        initialProgressBarWidth={initialProgressBarWidth}
         gameFieldInitialState={gameFieldInitialState}></EndOfTheGame>
     </React.Fragment>
   );

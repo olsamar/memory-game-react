@@ -3,27 +3,31 @@ import { GameStatus } from "./../modules/GameStatusModule";
 import "./NavBar.css";
 
 export default function NavBar(props) {
+  let progressBarWidth =
+    (props.secondsLeft * props.initialProgressBarWidth) /
+    props.initialGameSeconds;
   useEffect(() => {
     let interval;
     if (props.gameStatus === GameStatus.GAME_STARTED) {
       interval = setInterval(() => {
-        props.setProgressBarSeconds((prevSeconds) => {
-          console.log(`useeffect ${props.progressBarSeconds}`);
-          if (props.progressBarSeconds <= 0) {
-            console.log("Try Again!");
+        props.setSecondsLeft((prevSeconds) => {
+          console.log(`useeffect ${props.secondsLeft}`, progressBarWidth);
+          if (props.secondsLeft <= 0) {
             props.setGameStatus(GameStatus.GAME_LOST);
+            return 0;
           } else {
-            return prevSeconds - 1;
+            return Math.max(prevSeconds - 0.2, 0);
           }
         });
-      }, 1000);
+      }, 200);
     }
     return () => {
       if (interval) {
         clearInterval(interval);
       }
     };
-  }, [props]);
+  }, [props, progressBarWidth]);
+
   return (
     <section className="navigation-bar">
       <div className="progress-bar">
@@ -32,9 +36,9 @@ export default function NavBar(props) {
           <div
             className="progress-bar-filler"
             style={
-              props.gameStatus === GameStatus.GAME_STARTED
-                ? { animation: "progressBarAnimation 15s ease-in-out" }
-                : {}
+              props.gameStatus === GameStatus.NEW_GAME
+                ? { width: `${props.initialProgressBarWidth}%` }
+                : { width: `${progressBarWidth}%` }
             }></div>
         </div>
       </div>
