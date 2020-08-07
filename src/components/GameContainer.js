@@ -60,12 +60,12 @@ function GameContainer() {
     if (cardClicked.card.name === firstCardFlipped.card.name) {
       cardClicked.cardState = CardState.MATCHED;
       firstCardFlipped.cardState = CardState.MATCHED;
-      // setProgressBarSeconds((prevSeconds) => prevSeconds + 2);
+      setSecondsLeft((prevSeconds) => prevSeconds + 1.5);
       console.log(secondsLeft);
 
       setTimeout(() => {
         setGameScore((prevState) => prevState + 1);
-      }, 500);
+      }, 200);
     } else {
       setTimeout(() => {
         setGameField((prevState) => {
