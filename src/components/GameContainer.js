@@ -19,6 +19,12 @@ const fruits = [
   { name: "Strawberries", source: Strawberries },
 ];
 
+export const GameStatus = {
+  NEW_GAME: 0,
+  GAME_STARTED: 1,
+  GAME_WON: 2,
+  GAME_LOST: 3,
+};
 export const CardState = {
   FACE_DOWN: 0,
   FACE_UP: 1,
@@ -33,18 +39,17 @@ function GameContainer() {
     .map((fruit) => ({ cardState: CardState.FACE_DOWN, card: fruit }));
   const [gameField, setGameField] = useState(gameFieldInitialState);
   const [gameScore, setGameScore] = useState(0);
-  const [gameEnd, setGameEnd] = useState(false);
-  const [gameStart, setGameStart] = useState(false);
   const [progressBarSeconds, setProgressBarSeconds] = useState(
     defaultProgressBarSeconds
   );
+  const [gameStatus, setGameStatus] = useState(GameStatus.NEW_GAME);
 
   const handleClick = (index) => {
     // creating a new game deck so that React checks my array with cards
     const newGameField = [...gameField];
     flipTheCard(index, newGameField);
     setGameField(newGameField);
-    setGameStart(true);
+    setGameStatus(GameStatus.GAME_STARTED);
   };
 
   const flipTheCard = (index, newGameField) => {
@@ -80,8 +85,8 @@ function GameContainer() {
     if (cardClicked.card.name === firstCardFlipped.card.name) {
       cardClicked.cardState = CardState.MATCHED;
       firstCardFlipped.cardState = CardState.MATCHED;
-      setProgressBarSeconds((prevSeconds) => prevSeconds + 2);
-      // console.log(progressBarSeconds);
+      // setProgressBarSeconds((prevSeconds) => prevSeconds + 2);
+      console.log(progressBarSeconds);
 
       setTimeout(() => {
         setGameScore((prevState) => prevState + 1);
@@ -96,7 +101,7 @@ function GameContainer() {
           });
           return [...prevState];
         });
-      }, 1500);
+      }, 1000);
     }
   };
 
@@ -106,7 +111,8 @@ function GameContainer() {
       return [...prevState];
     });
     setGameScore(0);
-    setGameEnd(false);
+    setProgressBarSeconds(defaultProgressBarSeconds);
+    setGameStatus(GameStatus.NEW_GAME);
     setTimeout(() => {
       setGameField(gameFieldInitialState);
     }, 1000);
@@ -116,25 +122,24 @@ function GameContainer() {
     let timeout;
     if (gameScore === 6) {
       timeout = setTimeout(() => {
-        setGameEnd(true);
-        setGameStart(false);
+        setGameStatus(GameStatus.GAME_WON);
       }, 1000);
     }
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [gameEnd, gameScore]);
+  }, [gameStatus, gameScore]);
 
   useEffect(() => {
     let interval;
-    if (gameStart) {
+    if (gameStatus === GameStatus.GAME_STARTED) {
       interval = setInterval(() => {
         setProgressBarSeconds((prevSeconds) => {
-          // console.log(`useeffect ${progressBarSeconds}`);
-          if (progressBarSeconds <= 0 && !gameEnd) {
+          console.log(`useeffect ${progressBarSeconds}`);
+          if (progressBarSeconds <= 0) {
             console.log("Try Again!");
-            setGameStart(false);
+            setGameStatus(GameStatus.GAME_LOST);
           } else {
             return prevSeconds - 1;
           }
@@ -146,14 +151,14 @@ function GameContainer() {
         clearInterval(interval);
       }
     };
-  }, [gameStart, gameEnd, progressBarSeconds]);
+  }, [gameStatus, progressBarSeconds]);
 
   return (
     <React.Fragment>
       <NavBar
         gameScore={gameScore}
         progressBarSeconds={progressBarSeconds}
-        gameStart={gameStart}
+        gameStatus={gameStatus}
       />
       <section className="game-field-container">
         {gameField.map((cell, index) => (
@@ -166,7 +171,9 @@ function GameContainer() {
           />
         ))}
       </section>
-      <EndOfTheGame gameEnd={gameEnd} resetGame={resetGame} />
+      <EndOfTheGame
+        gameStatus={gameStatus}
+        resetGame={resetGame}></EndOfTheGame>
     </React.Fragment>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { GameStatus } from "./GameContainer";
 import "./NavBar.css";
 
 export default function NavBar(props) {
@@ -10,7 +11,7 @@ export default function NavBar(props) {
           <div
             className="progress-bar-filler"
             style={
-              props.gameStart
+              props.gameStatus === GameStatus.GAME_STARTED
                 ? { animation: "progressBarAnimation 15s ease-in-out" }
                 : {}
             }></div>
