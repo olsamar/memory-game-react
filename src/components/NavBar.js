@@ -8,7 +8,7 @@ export default function NavBar(props) {
     props.initialGameSeconds;
   useEffect(() => {
     let interval;
-    if (props.gameStatus === GameStatus.GAME_STARTED) {
+    if (props.gameStatus === GameStatus.GAME_STARTED && props.gameScore !== 6) {
       interval = setInterval(() => {
         props.setSecondsLeft((prevSeconds) => {
           console.log(`useeffect ${props.secondsLeft}`, progressBarWidth);
