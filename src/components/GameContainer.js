@@ -119,8 +119,9 @@ function GameContainer() {
         setGameField={setGameField}
         setGameStatus={setGameStatus}
         setProgressBarSeconds={setProgressBarSeconds}
+        setGameScore={setGameScore}
         defaultProgressBarSeconds={defaultProgressBarSeconds}
-        setGameScore={setGameScore}></EndOfTheGame>
+        gameFieldInitialState={gameFieldInitialState}></EndOfTheGame>
     </React.Fragment>
   );
 }
