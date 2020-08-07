@@ -1,35 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
-import Apple from "./../assets/images/Apple.png";
-import Banana from "./../assets/images/Banana.png";
-import Blueberries from "./../assets/images/Blueberries.png";
-import Grapes from "./../assets/images/Grape.png";
-import Pear from "./../assets/images/Pear.png";
-import Strawberries from "./../assets/images/Strawberrie.png";
 import EndOfTheGame from "./EndOfTheGame";
 import NavBar from "./NavBar";
+import { fruits } from "./../modules/FruitModule";
+import { GameStatus } from "./../modules/GameStatusModule";
+import { CardState } from "./../modules/CardStateModule";
 import "./GameContainer.css";
-
-const fruits = [
-  { name: "Apple", source: Apple },
-  { name: "Banana", source: Banana },
-  { name: "Blueberries", source: Blueberries },
-  { name: "Grapes", source: Grapes },
-  { name: "Pear", source: Pear },
-  { name: "Strawberries", source: Strawberries },
-];
-
-export const GameStatus = {
-  NEW_GAME: 0,
-  GAME_STARTED: 1,
-  GAME_WON: 2,
-  GAME_LOST: 3,
-};
-export const CardState = {
-  FACE_DOWN: 0,
-  FACE_UP: 1,
-  MATCHED: 2,
-};
 
 function GameContainer() {
   const defaultProgressBarSeconds = 15;
@@ -105,19 +81,6 @@ function GameContainer() {
     }
   };
 
-  const resetGame = () => {
-    setGameField((prevState) => {
-      prevState.forEach((cell) => (cell.cardState = CardState.FACE_DOWN));
-      return [...prevState];
-    });
-    setGameScore(0);
-    setProgressBarSeconds(defaultProgressBarSeconds);
-    setGameStatus(GameStatus.NEW_GAME);
-    setTimeout(() => {
-      setGameField(gameFieldInitialState);
-    }, 1000);
-  };
-
   useEffect(() => {
     let timeout;
     if (gameScore === 6) {
@@ -131,34 +94,14 @@ function GameContainer() {
     };
   }, [gameStatus, gameScore]);
 
-  useEffect(() => {
-    let interval;
-    if (gameStatus === GameStatus.GAME_STARTED) {
-      interval = setInterval(() => {
-        setProgressBarSeconds((prevSeconds) => {
-          console.log(`useeffect ${progressBarSeconds}`);
-          if (progressBarSeconds <= 0) {
-            console.log("Try Again!");
-            setGameStatus(GameStatus.GAME_LOST);
-          } else {
-            return prevSeconds - 1;
-          }
-        });
-      }, 1000);
-    }
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [gameStatus, progressBarSeconds]);
-
   return (
     <React.Fragment>
       <NavBar
         gameScore={gameScore}
         progressBarSeconds={progressBarSeconds}
         gameStatus={gameStatus}
+        setGameStatus={setGameStatus}
+        setProgressBarSeconds={setProgressBarSeconds}
       />
       <section className="game-field-container">
         {gameField.map((cell, index) => (
@@ -173,7 +116,11 @@ function GameContainer() {
       </section>
       <EndOfTheGame
         gameStatus={gameStatus}
-        resetGame={resetGame}></EndOfTheGame>
+        setGameField={setGameField}
+        setGameStatus={setGameStatus}
+        setProgressBarSeconds={setProgressBarSeconds}
+        defaultProgressBarSeconds={defaultProgressBarSeconds}
+        setGameScore={setGameScore}></EndOfTheGame>
     </React.Fragment>
   );
 }

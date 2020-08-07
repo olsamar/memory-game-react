@@ -1,5 +1,5 @@
 import React from "react";
-import { CardState } from "./GameContainer";
+import { CardState } from "./../modules/CardStateModule";
 import "./Card.css";
 
 function Card(props) {
