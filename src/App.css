@@ -1,13 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  --bg-color-lighter: #f5b673;
-  --bg-color-darker: #44703e;
   --game-score-bg: #ffef62;
+  --end-ofthe-game-bg: rgb(243, 236, 174, 0.8);
   --font-color: #33091d;
   --card-face-up-bg: rgb(253, 245, 218);
   --progress-bar-filler-color: #94a3ff;
+  --font-family: "Poppins", sans-serif;
 }
 html {
   height: 100%;
@@ -32,4 +34,11 @@ body {
 
 header {
   color: var(--font-color);
+  font-family: var(--font-family);
+}
+
+@media (orientation: landscape) and (max-width: 700px) {
+  header {
+    font-size: smaller;
+  }
 }
