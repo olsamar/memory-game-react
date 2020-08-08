@@ -60,7 +60,13 @@ function GameContainer() {
     if (cardClicked.card.name === firstCardFlipped.card.name) {
       cardClicked.cardState = CardState.MATCHED;
       firstCardFlipped.cardState = CardState.MATCHED;
-      setSecondsLeft((prevSeconds) => prevSeconds + 1.5);
+      setSecondsLeft((prevSeconds) => {
+        if (prevSeconds < initialGameSeconds - 1.5) {
+          return prevSeconds + 1.5;
+        } else {
+          return initialGameSeconds;
+        }
+      });
       console.log(secondsLeft);
 
       setTimeout(() => {
