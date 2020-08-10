@@ -23,7 +23,7 @@ function Card(props) {
       name={props.name}
       onClick={props.handleClick}>
       <img className="card-face-up" src={props.src} alt={`${props.name}`}></img>
-      <div className="card-face-down">{props.name}</div>
+      <div className="card-face-down"></div>
     </div>
   );
 }

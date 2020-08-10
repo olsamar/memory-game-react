@@ -11,7 +11,6 @@ export default function NavBar(props) {
     if (props.gameStatus === GameStatus.GAME_STARTED && props.gameScore !== 6) {
       interval = setInterval(() => {
         props.setSecondsLeft((prevSeconds) => {
-          console.log(`useeffect ${props.secondsLeft}`, progressBarWidth);
           if (props.secondsLeft <= 0) {
             props.setGameStatus(GameStatus.GAME_LOST);
             return 0;
@@ -31,10 +30,9 @@ export default function NavBar(props) {
   return (
     <section className="navigation-bar">
       <span className="game-score">
-        <h5>SCORE: {props.gameScore}</h5>
+        <h4>SCORE: {props.gameScore}</h4>
       </span>
       <div className="progress-bar">
-        {/* <h5>TIME LEFT</h5> */}
         <div className="progress-bar-container">
           <div
             className="progress-bar-filler"

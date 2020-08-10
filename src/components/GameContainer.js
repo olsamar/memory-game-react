@@ -67,7 +67,6 @@ function GameContainer() {
           return initialGameSeconds;
         }
       });
-      console.log(secondsLeft);
 
       setTimeout(() => {
         setGameScore((prevState) => prevState + 1);
