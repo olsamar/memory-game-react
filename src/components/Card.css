@@ -1,6 +1,7 @@
 .fruit-card {
   position: relative;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transition: all 0.3s ease;
   background: var(--card-face-up-bg);
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -8,6 +9,9 @@
 }
 
 .fruit-card.flip {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 /* @keyframes matchingCardsScaled {
@@ -25,7 +29,13 @@
   top: 50%;
   left: 50%;
   backface-visibility: hidden;
-  transform: translate(-50%, -50%) rotateY(180deg);
+  -webkit-backface-visibility: hidden;
+  transform: translate(-50%, -50%) rotateY(180deg) translate3d(0, 0, 1px);
+  -webkit-transform: translate(-50%, -50%) rotateY(180deg)
+    translate3d(0, 0, 1px);
+  -moz-transform: translate(-50%, -50%) rotateY(180deg);
+  -ms-transform: translate(-50%, -50%) rotateY(180deg);
+  z-index: 1;
 }
 
 .card-face-down {
@@ -34,7 +44,7 @@
   height: 100%;
   background: url(./../assets/images/PurpleDottedBg.png);
   backface-visibility: hidden;
-  transform: none;
+  -webkit-backface-visibility: hidden;
   border-radius: 6px;
 }
 
