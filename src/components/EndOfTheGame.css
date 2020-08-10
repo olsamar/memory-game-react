@@ -1,22 +1,67 @@
-.end-of-game {
+.game-end-backdrop {
   width: 100%;
   height: 100%;
   z-index: 2;
-  margin: auto;
+  background: var(--end-ofthe-game-bg);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.game-end-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--end-ofthe-game-bg);
-  position: absolute;
-  color: var(--card-face-down-color-darker);
+  color: var(--font-color);
+  background: var(--end-of-the-game-card);
+  height: 35%;
+  width: 75vw;
+  animation: gameEndCardAnimation 0.7s ease-in forwards;
+}
+@keyframes gameEndCardAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.game-end-card h2 {
+  font-family: var(--font-family);
 }
 
 .play-again-btn {
   width: 11rem;
   height: 4rem;
-  background: var(--card-face-down-color-lighter);
-  font-size: 1.5rem;
+  background: var(--navbar-bg);
+  font-size: 1.2rem;
   margin-top: 2rem;
-  border-radius: 5px;
+  border: 0.2rem solid transparent;
+  border-image: linear-gradient(
+    to top right,
+    var(--progress-bar-filler-color),
+    var(--font-color)
+  );
+  border-image-slice: 1;
+}
+.play-again-btn:hover {
+  cursor: pointer;
+  background-image: linear-gradient(
+    to top right,
+    var(--progress-bar-filler-color),
+    var(--font-color)
+  );
+  color: var(--end-of-the-game-card);
+}
+
+@media (min-width: 600px) {
+  .game-end-card {
+    width: 60%;
+  }
+}
+@media (min-width: 800px) {
+  .game-end-card {
+    width: 40%;
+  }
 }
