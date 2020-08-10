@@ -32,7 +32,7 @@ export default function EndOfTheGame(props) {
     <React.Fragment>
       {props.gameStatus === GameStatus.GAME_WON ||
       props.gameStatus === GameStatus.GAME_LOST ? (
-        <div className="game-end-backdrop" onClick={resetGame}>
+        <div className="game-end-backdrop">
           <div className="game-end-card">
             <h2>{gameEndMessage}</h2>
             <button className="play-again-btn" onClick={resetGame}>
