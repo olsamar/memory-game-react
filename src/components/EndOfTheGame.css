@@ -37,7 +37,13 @@
   background: var(--navbar-bg);
   font-size: 1.2rem;
   margin-top: 2rem;
-  border: 0.2rem solid transparent;
+  border-style: solid;
+  border-width: 0.2rem;
+  -webkit-border-image: linear-gradient(
+    to top right,
+    var(--progress-bar-filler-color),
+    var(--font-color)
+  );
   border-image: linear-gradient(
     to top right,
     var(--progress-bar-filler-color),
