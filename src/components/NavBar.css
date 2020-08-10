@@ -1,7 +1,7 @@
 .navigation-bar {
   width: 80vw;
   height: 3rem;
-  background: var(--game-score-bg);
+  background: var(--navbar-bg);
   position: relative;
   color: var(--font-color);
   display: flex;

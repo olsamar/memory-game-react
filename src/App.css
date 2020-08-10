@@ -4,11 +4,12 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  --game-score-bg: #ffef62;
-  --end-ofthe-game-bg: rgb(243, 236, 174, 0.8);
+  --navbar-bg: #ffef62;
+  --end-of-the-game-card: rgb(255, 251, 239);
+  --end-ofthe-game-bg: rgb(253, 245, 218, 0.2);
   --font-color: #33091d;
   --card-face-up-bg: rgb(253, 245, 218);
-  --progress-bar-filler-color: #94a3ff;
+  --progress-bar-filler-color: rgb(148, 163, 255);
   --font-family: "Poppins", sans-serif;
 }
 html {
