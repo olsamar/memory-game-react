@@ -30,12 +30,11 @@
   left: 50%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: translate(-50%, -50%) rotateY(180deg) translate3d(0, 0, 1px);
+  transform: translate(-50%, -50%) rotateY(180deg);
   -webkit-transform: translate(-50%, -50%) rotateY(180deg)
     translate3d(0, 0, 1px);
   -moz-transform: translate(-50%, -50%) rotateY(180deg);
   -ms-transform: translate(-50%, -50%) rotateY(180deg);
-  z-index: 1;
 }
 
 .card-face-down {
