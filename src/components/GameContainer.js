@@ -12,7 +12,7 @@ function GameContainer() {
   const initialProgressBarWidth = 100;
   const gameFieldInitialState = fruits
     .concat(fruits)
-    .sort(() => Math.random() - 0.5)
+    .sort(() => Math.random() - 0.3)
     .map((fruit) => ({ cardState: CardState.FACE_DOWN, card: fruit }));
   const [gameField, setGameField] = useState(gameFieldInitialState);
   const [gameScore, setGameScore] = useState(0);
