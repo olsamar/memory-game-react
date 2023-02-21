@@ -6,7 +6,7 @@ This app  was bootstrapped with Create React App. It is a studying project aimed
 
 ## Where to Play
 
-You can play it [here](https://mollie-s.github.io/memory-game-react/)
+You can play it [here](https://olsamar.github.io/memory-game-react/)
 
 ![](src/assets/game-screenshots/memory_game_screenshot.png)
 
